@@ -27,8 +27,8 @@ const dogSchema = new mongoose.Schema({
     enum: ['Small', 'Medium', 'Large', 'Superlarge', 'Ultralarge'],
     required: true
   }
-});
+}, {collection: 'Dogs'});
 
-const Dog = mongoose.model('Dog', dogSchema);
+const Dogs = mongoose.model('Dogs', dogSchema);
 
-module.exports = Dog;
+module.exports = Dogs;

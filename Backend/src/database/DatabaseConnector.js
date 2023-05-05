@@ -6,6 +6,8 @@ class DatabaseConnector {
     this.connection = mongoose.createConnection(url, { useNewUrlParser: true, useUnifiedTopology: true });
   }
 
+
+
   connectToDb(callback) {
     this.connection.on('error', (err) => {
       console.log(`Error connecting to database: ${err}`);

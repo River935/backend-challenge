@@ -1,0 +1,218 @@
+---
+openapi: 3.0.0
+info:
+  title: Dogshelter-Api
+  description: An Api for a dog shelter
+  version: "1"
+servers:
+- url: https://virtserver.swaggerhub.com/JONATHANNUEL98/Dogshelter-Api/1
+  description: localhost
+paths:
+  /dogs:
+    get:
+      summary: Get all dogs
+      responses:
+        "200":
+          description: List of dogs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dogs'
+  /dogs/create:
+    post:
+      summary: Create a new dog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dog'
+        required: true
+      responses:
+        "201":
+          description: Dog created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dog'
+        "401":
+          description: Not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+  /dogs/{id}:
+    get:
+      summary: Get a single dog by ID
+      parameters:
+      - name: id
+        in: path
+        description: ID of the dog to get
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+          example: 1
+      responses:
+        "200":
+          description: Dog found successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dog'
+        "404":
+          description: Dog not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a single dog by ID
+      parameters:
+      - name: id
+        in: path
+        description: ID of the dog to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dog'
+        required: true
+      responses:
+        "200":
+          description: Dog updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dog'
+        "404":
+          description: Dog not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+    delete:
+      summary: Delete a single dog by ID
+      parameters:
+      - name: id
+        in: path
+        description: ID of the dog to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+          example: 1
+      responses:
+        "204":
+          description: Dog deleted successfully
+        "404":
+          description: Dog not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+  /dogs/search:
+    get:
+      summary: Get dogs by size range
+      parameters:
+      - name: size
+        in: query
+        description: Size of the dogs to search
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Error'
+      responses:
+        "200":
+          description: List of dogs within the specified size range
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dogs'
+        "404":
+          description: No dogs found within the specified size range
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Dog:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: unique identifier for a dog
+          format: int64
+          example: 1
+        name:
+          type: string
+          description: name of a dog
+          example: Zeus
+        breed:
+          type: string
+          description: breed of a dog
+          example: labrador
+        age:
+          type: integer
+          description: age of a dog in years
+          format: int64
+          example: 7
+        gender:
+          type: string
+          description: gender of a dog
+          example: Male
+          enum:
+          - Male
+          - Female
+        weight:
+          type: integer
+          description: weight of a dog
+          example: 53
+        size:
+          type: string
+          description: size of a dogs
+          example: Ultralarge
+          enum:
+          - Small
+          - Medium
+          - Large
+          - Superlarge
+          - Ultralarge
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP error status code
+          example: 404
+        message:
+          type: string
+          description: Error message
+          example: Dog not found
+    Dogs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Dog'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      name: X-API-Key
+      in: header

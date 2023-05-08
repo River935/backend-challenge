@@ -49,3 +49,17 @@ app.get("/dogs", (req, res) => {
   });
 });
 
+/*
+//create  new Dog object
+const dog = await Dog.create({
+  name: "Rex",
+  breed: "Poodle",
+  age: 5,
+  gender: "Female",
+  weight: 10,
+  size: "Small"
+});
+
+//console the first dog
+console.log(dog);
+*/

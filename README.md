@@ -14,4 +14,8 @@
   -
 
 
-//details
+//to do
+
+[] add CreatedAt, UdatedAt, Comments in Dog schema?
+[] add User.js (Owners, Clients) in model and create a user schema, model
+

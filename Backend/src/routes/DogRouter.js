@@ -9,7 +9,7 @@ class DogRouter {
 
   initializeRoutes() {
     this.app.get("/dogs", this.dogController.findAll);
-    this.app.get("/dogs/:id", this.dogController.findOne);
+    this.app.get("/dogs/:id", this.dogController.findOneDogByID);
   }
 
 }

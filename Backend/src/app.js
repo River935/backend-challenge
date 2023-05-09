@@ -26,7 +26,7 @@ db.connectToDb((err) => {
 
 //routes
 
-app.get('/dogs', async (req, res) => {
+app.get('/Dogs', async (req, res) => {
   try {
     const dogs = await Dog.find();
     res.status(200).json(dogs);
@@ -38,7 +38,7 @@ app.get('/dogs', async (req, res) => {
 app.get("/dogs", (req, res) => {
 
   let dogs = [];
-
+  //res.json({msg: "Hello World"})
   db.collection("Dogs").find().forEach((dog) => {
     console.log(db.collection);
     dogs.push(dog);
@@ -49,17 +49,19 @@ app.get("/dogs", (req, res) => {
   });
 });
 
-/*
-//create  new Dog object
-const dog = await Dog.create({
-  name: "Rex",
-  breed: "Poodle",
-  age: 5,
-  gender: "Female",
-  weight: 10,
-  size: "Small"
+//post request
+app.post('/dogs', (req, res) => {
+  app.post('/dogs', async (req, res) => {
+    try {
+      const dog = new Dog(req.body);
+      await dog.save();
+      res.status(201).json(dog);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  });
+  
 });
 
-//console the first dog
-console.log(dog);
-*/
+
+

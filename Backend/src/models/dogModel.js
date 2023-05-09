@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
-
-const dogSchema = new mongoose.Schema({
+const { Schema, model } = require('mongoose');
+//import { Schema } from 'mongoose';
+//const dogSchema = new Schema({
+const dogSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -29,6 +30,6 @@ const dogSchema = new mongoose.Schema({
   }
 }, {collection: 'Dogs'});
 
-const Dogs = mongoose.model('Dogs', dogSchema);
+const Dogs = model('Dogs', dogSchema);
 
 module.exports = Dogs;

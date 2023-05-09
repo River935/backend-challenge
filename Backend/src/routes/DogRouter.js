@@ -11,7 +11,6 @@ class DogRouter {
     this.app.get("/dogs", this.dogController.findAll);
     this.app.get("/dogs/:id", this.dogController.findOneDogByID);
   }
-
 }
 
 module.exports = DogRouter;

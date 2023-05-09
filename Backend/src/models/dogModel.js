@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
-//Better Import?
-//import mongoose from 'mongoose';
-//const { Schema, model } = mongoose;
 
-//const dogSchema = new Schema({
 const dogSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -31,10 +27,8 @@ const dogSchema = new mongoose.Schema({
     enum: ['Small', 'Medium', 'Large', 'Superlarge', 'Ultralarge'],
     required: true
   }
-});
+}, {collection: 'Dogs'});
 
-//const Dog = model("Dog", dogSchema);
-//export default Dog;
-const Dog = mongoose.model('Dog', dogSchema);
+const Dogs = mongoose.model('Dogs', dogSchema);
 
-module.exports = Dog;
+module.exports = Dogs;

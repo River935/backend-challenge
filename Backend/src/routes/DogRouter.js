@@ -1,20 +1,17 @@
-const express = require('express');
 const DogController = require('../controllers/DogController');
 
 class DogRouter {
-  constructor() {
-    this.router = express.Router();
+  constructor(app) {
+    this.app = app;
     this.dogController = new DogController();
     this.initializeRoutes();
   }
 
   initializeRoutes() {
-    this.router.get('/', this.dogController.findAll.bind(this.dogController));
+    this.app.get("/dogs", this.dogController.findAll);
+    this.app.get("/dogs/:id", this.dogController.findOneDogByID);
   }
 
-  getRouter() {
-    return this.router;
-  }
 }
 
 module.exports = DogRouter;

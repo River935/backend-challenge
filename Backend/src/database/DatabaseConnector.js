@@ -1,25 +1,15 @@
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 class DatabaseConnector {
-  constructor() {
-    const url = 'mongodb+srv://admin:WArnHs7@backend-challenge.nw6l8ae.mongodb.net/?retryWrites=true&w=majority';
-    this.connection = mongoose.createConnection(url, { useNewUrlParser: true, useUnifiedTopology: true });
-  }
-
-  connectToDb(callback) {
-    this.connection.on('error', (err) => {
-      console.log(`Error connecting to database: ${err}`);
-      callback(err);
-    });
-
-    this.connection.once('open', () => {
-      console.log('Connected to database');
-      callback();
-    });
-  }
-
-  getDb() {
-    return this.connection;
+  connectToDb() {
+    const dbPwd = process.env.DB_PWD;
+    return mongoose.connect(`mongodb+srv://admin:${dbPwd}@backend-challenge.nw6l8ae.mongodb.net/Shelter?retryWrites=true&w=majority`)
+      .then(() => {
+        console.log("Connected to database");
+      }).catch((err) => {
+        console.log("Not connected to database", err);
+      });
   }
 }
 

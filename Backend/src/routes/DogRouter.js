@@ -1,4 +1,4 @@
-const DogController = require('../controllers/DogController');
+const DogController = require("../controllers/DogController");
 
 class DogRouter {
   constructor(app) {

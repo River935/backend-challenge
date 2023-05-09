@@ -1,4 +1,4 @@
-const Dog = require('../models/dogModel');
+const Dog = require("../models/dogModel");
 
 class DogController {
   async findAll(req, res) {
@@ -8,7 +8,7 @@ class DogController {
       res.status(200).json(dogs);
       // close connection
     } catch (err) {
-      res.status(500).json({message : "Error connecting to db"});
+      res.status(500).json({ message: "Error connecting to db" });
     }
   }
 
@@ -17,7 +17,7 @@ class DogController {
       const dog = await Dog.findById(req.params.id);
       res.status(200).json(dog);
     } catch (err) {
-      res.status(500).json({message : "Error connecting to db"});
+      res.status(500).json({ message: "Error connecting to db" });
     }
   }
 }

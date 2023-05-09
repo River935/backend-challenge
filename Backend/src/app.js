@@ -11,7 +11,11 @@ let db = new DatabaseConnector();
 let dogRouter = new DogRouter(app);
 
 db.connectToDb()
-    .then(() => {
-      app.listen(3000, () => { console.log("Server running on port 3000"); });
-    })
-    .catch((err) => { console.log("Not connected to database", err); });
+  .then(() => {
+    app.listen(3000, () => {
+      console.log("Server running on port 3000");
+    });
+  })
+  .catch((err) => {
+    console.log("Not connected to database", err);
+  });

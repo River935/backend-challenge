@@ -9,21 +9,10 @@ class DogController {
       res.status(200).json(dogs);
       //close connection
     } catch (err) {
-      const somethingwrong = new Error({
-         type: "Database error",
-          code:  {
-            type: res.status,
-            description: res.statusText
-          },
-          message: {
-            type: "String",
-            description: res.message,
-          }
-      } );
-      console.log(somethingwrong);
       res.status(500).json({message: "Error connecting to db"});
     }
   }
+
 
   async findOneDogByID(req, res) {
     try {

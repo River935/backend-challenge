@@ -1,4 +1,4 @@
-const CatController = require('../controllers/CatController');
+const CatController = require("../controllers/CatController");
 
 class CatRouter {
   constructor(app) {

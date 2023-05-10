@@ -4,28 +4,27 @@ const monError = require('../models/errorModel');
 class DogController {
   async findAll(req, res) {
     try {
-      //create database connection
+      // create database connection
       const dogs = await Dog.find();
       res.status(200).json(dogs);
-      //close connection
+      // close connection
     } catch (err) {
-      res.status(500).json({message: "Error connecting to db"});
+      res.status(500).json({message : "Error connecting to db"});
     }
   }
-
 
   async findOneDogByID(req, res) {
     try {
       const dog = await Dog.findById(req.params.id);
       res.status(200).json(dog);
     } catch (err) {
-        const upsi = new monError({
-          type: "Database error",
-          code: 404,
-          message: `Error finding dog with id ${req.params.id}`,
-          description: err.message,
-        });
-        res.status(404).json(upsi);
+      const upsi = new monError({
+        type : "Database error",
+        code : 404,
+        message : `Error finding dog with id ${req.params.id}`,
+        description : err.message,
+      });
+      res.status(404).json(upsi);
     }
   }
 
@@ -34,10 +33,10 @@ class DogController {
       console.log("countAllDogs");
       const count = await Dog.countDocuments();
       console.log(count);
-      res.status(200).json({count: count});
+      res.status(200).json({count : count});
     } catch (err) {
       console.log(err);
-      res.status(500).json({message: "Error counting dogs"});
+      res.status(500).json({message : "Error counting dogs"});
     }
   }
 
@@ -47,7 +46,7 @@ class DogController {
       const result = await dog.save();
       res.status(201).json(result);
     } catch (err) {
-      res.status(500).json({message: "Error creating dog"});
+      res.status(500).json({message : "Error creating dog"});
     }
   }
 
@@ -63,8 +62,8 @@ class DogController {
       const result = await dog.save();
       res.status(200).json(result);
     } catch (err) {
-      //res.status(500).json(err);      Error schema
-      res.status(500).json({message: "Error put dog"});
+      // res.status(500).json(err);      Error schema
+      res.status(500).json({message : "Error put dog"});
     }
   }
 
@@ -78,24 +77,22 @@ class DogController {
     } catch (err) {
       res.status(500).json(err);
     }
-}
+  }
 
   async deleteDog(req, res) {
-  try {
+    try {
 
-    const result = await Dog.deleteOne({ _id: req.params.id });
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Dog not found" });
+      const result = await Dog.deleteOne({_id : req.params.id});
+      if (result.deletedCount === 0) {
+        return res.status(404).json({message : "Dog not found"});
+      }
+      res.status(200).json({message : "Dog deleted"});
+    } catch (err) {
+      res.status(500).json(err);
     }
-    res.status(200).json({ message: "Dog deleted" });
-  } catch (err) {
-    res.status(500).json(err);
   }
+
+  // hello
 }
-
-//hello
-
-}
-
 
 module.exports = DogController;

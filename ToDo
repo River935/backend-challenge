@@ -1,2 +1,5 @@
+[x] add put and patch to the documentation
 [] create Error schema to send back on error
-[]
+[] implement the documentation.
+[] add CreatedAt, UdatedAt, Comments in Dog schema.
+[] add User.js (Owners, Clients) in model and create a user schema, model.

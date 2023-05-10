@@ -1,4 +1,5 @@
 const Dog = require('../models/dogModel');
+const monError = require('../models/errorModel');
 
 class DogController {
   async findAll(req, res) {
@@ -12,14 +13,22 @@ class DogController {
     }
   }
 
+
   async findOneDogByID(req, res) {
     try {
       const dog = await Dog.findById(req.params.id);
       res.status(200).json(dog);
     } catch (err) {
-      res.status(500).json({message: "Error connecting to db"});
+        const upsi = new monError({
+          type: "Database error",
+          code: 404,
+          message: `Error finding dog with id ${req.params.id}`,
+          description: err.message,
+        });
+        res.status(404).json(upsi);
     }
   }
+
   async countAllDogs(req, res) {
     try {
       console.log("countAllDogs");
@@ -29,7 +38,7 @@ class DogController {
     } catch (err) {
       console.log(err);
       res.status(500).json({message: "Error counting dogs"});
-    } 
+    }
   }
 
   async createDog(req, res) {
@@ -62,7 +71,7 @@ class DogController {
   async patchDog(req, res) {
     try {
       const dog = await Dog.findById(req.params.id);
-      
+
       dog.age = req.body.age;
       const result = await dog.save();
       res.status(200).json(result);
@@ -71,8 +80,7 @@ class DogController {
     }
 }
 
-
-async deleteDog(req, res) {
+  async deleteDog(req, res) {
   try {
 
     const result = await Dog.deleteOne({ _id: req.params.id });

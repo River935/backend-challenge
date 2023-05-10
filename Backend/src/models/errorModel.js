@@ -13,19 +13,16 @@ const errorSchema = new Schema({
   },
   message: {
     type: String,
-    description: "HTTP status text",
+    description: "Error message",
     required: true
   },
   description: {
-    type: String
+    type: String,
+    description: "description of the Error",
+    required: true
   }
 
 
-
-  // type: Object,
-  // code: Number,
-  // message: String,
-  // description: String
 });
 
 const monError = model('monError', errorSchema);

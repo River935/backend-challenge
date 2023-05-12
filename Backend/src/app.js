@@ -6,6 +6,12 @@ const DogRouter = require("./routes/DogRouter");
 const app = express();
 app.use(express.json());
 
+// creating a user
+
+// authenticating the user
+
+//make certain db operations only available to authenticated users with certain roles
+
 //db connection
 let db = new DatabaseConnector();
 let dogRouter = new DogRouter(app);

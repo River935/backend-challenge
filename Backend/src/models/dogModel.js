@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose');
+
 //import { Schema } from 'mongoose';
 //const dogSchema = new Schema({
+  
 const dogSchema = new Schema({
   name: {
     type: String,

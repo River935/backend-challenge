@@ -1,7 +1,8 @@
 const Cat = require('../models/catModel');
-
+const monError = require("../models/errorModel");
+const helper  = require("../helpers/Helper");
 class CatController {
-  async findAll(req, res) {
+  async findAllCats(req, res) {
     try {
       //create database connection
       const cats = await Cat.find();
@@ -32,7 +33,7 @@ class CatController {
     } 
   }
 
-  async createDog(req, res) {
+  async createCat(req, res) {
     try {
       const cat = new Cat(req.body);
       const result = await cat.save();

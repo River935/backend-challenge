@@ -8,7 +8,8 @@ class AuthRouter{
   }
 
   initializeRoutes(){
-    this.app.post("/signUp", this.authController.signUp)
+    this.app.post("/signup", this.authController.signUp);
+    this.app.post("/login", this.authController.login)
   }
 
 }

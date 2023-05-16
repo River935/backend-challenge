@@ -5,11 +5,12 @@ const bcrypt = require('bcrypt');
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: [true, "Enter a Name"],
+    lowercase: true,
   },
   email: {
     type: String,
-    required: [true, "Enter an email"],
+    required: [true, "Enter an Email"],
     unique: true,
     lowercase: true,
     validate: [isEmail, "Enter a valid email"],
@@ -21,6 +22,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
+    default: 'user',
     enum: ['admin', 'user'],
   }
 }, {collection: 'Users'});
@@ -37,6 +39,18 @@ userSchema.pre("save", async function (next) {
     next();
   }
 );
+
+userSchema.statics.login = async function (email, password) {
+  const user = await this.findOne({email});
+  if (user) {
+    const auth = await bcrypt.compare(password, user.password);
+    if (auth) {
+      return user;
+    }
+    throw Error("Incorrect password");
+  }
+  throw Error("Incorrect email");
+}
 
 const Users = model('Users', userSchema);
 

@@ -1,21 +1,19 @@
 const DatabaseConnector = require("./database/DatabaseConnector");
-
 const express = require("express");
 const DogRouter = require("./routes/DogRouter");
 const AuthRouter = require("./routes/AuthRouter");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
 
 // creating a user
-
-
 // authenticating the user
+// make certain db operations only available to authenticated users with certain roles
 
-
-//make certain db operations only available to authenticated users with certain roles
-
-//db connection
 let db = new DatabaseConnector();
 
 let authRouter = new AuthRouter(app);

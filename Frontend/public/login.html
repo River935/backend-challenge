@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+</head>
+<body>
+<a href="./index.html">SignUp</a>
+<form>
+
+  <h2>Login</h2>
+
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email" placeholder="Email">
+  <br>
+  <br>
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password" placeholder="Password">
+  <br>
+  <br>
+  <button>Login</button>
+
+</form>
+
+<script>
+
+  const form = document.querySelector('form');
+  const emailError = document.querySelector('.emailError');
+  const passwordError = document.querySelector('.passwordError');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const result = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          body: JSON.stringify(Object.fromEntries(formData)),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await result.json();
+      // document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
+
+      if (data.hasOwnProperty("code")) {
+        const errorMessages = data.message.replace("Users validation failed:", "").split(",")
+
+        errorMessages[1] ? emailError.textContent = errorMessages[1] : emailError.textContent = "";
+        errorMessages[2] ? passwordError.textContent = errorMessages[2] : passwordError.textContent = "";
+      }
+
+      if(data.user){
+        // location.assign("/home.html")
+        console.log(data.user)
+      }
+
+    } catch (err) {
+      console.log(err)
+    }
+  });
+
+</script>
+
+</body>
+</html>

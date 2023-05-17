@@ -8,18 +8,12 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(bodyParser.urlencoded() );
+app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(cors());
 
 console.log("server")
-// app.get("/asd", (req, res) => {
-//
-//   res.set( 'Set-Cookie', 'cookieName=cookieValue');
-//
-//   res.send("Hello World");
-//
-// })
+
 // creating a user
 // authenticating the user
 // make certain db operations only available to authenticated users with certain roles

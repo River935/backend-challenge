@@ -9,13 +9,12 @@
 </head>
 <body>
 <a href="./login.html">Login</a>
-<!--<form action="http://localhost:3000/signup" method="post">-->
-<form>
+<form action="http://localhost:3000/signup" method="post">
 
   <h2>Sign Up</h2>
 
   <label for="name">Name</label>
-  <input required type="text" name="name" id="name" placeholder="Name">
+  <input type="text" name="name" id="name" placeholder="Name">
   <br>
   <br>
   <label for="email">Email</label>
@@ -31,7 +30,7 @@
   <div class="nameError"></div>
   <div class="emailError"></div>
   <div class="passwordError"></div>
-  
+
   <br>
   <button>Sign Up</button>
 
@@ -46,12 +45,9 @@
   const passwordError = document.querySelector('.passwordError');
 
   form.addEventListener('submit', async (e) => {
-    // return
-
-
-
     // e.preventDefault();
-
+    //
+    //
     // const formData = new FormData(form);
     //
     // try {
@@ -63,10 +59,9 @@
     //       },
     //     }
     //   );
-    //
     //   const data = await result.json();
     //
-    //   // document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
+    //   //document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
     //
     //   if (data.hasOwnProperty("code")) {
     //     const reformatMessages = data.message.replace("Users validation failed:", "").split(",")
@@ -82,8 +77,7 @@
     //   }
     //
     //   if(data.user){
-    //     // location.assign("/login.html")
-    //     console.log("User created")
+    //     location.assign("/login.html")
     //   }
     //
     // } catch (err) {

@@ -9,12 +9,12 @@
 </head>
 <body>
 <a href="./login.html">Login</a>
-<form>
+<form action="http://localhost:3000/signup" method="post">
 
   <h2>Sign Up</h2>
 
   <label for="name">Name</label>
-  <input type="text" name="name" id="name" placeholder="Name">
+  <input required type="text" name="name" id="name" placeholder="Name">
   <br>
   <br>
   <label for="email">Email</label>
@@ -45,44 +45,49 @@
   const passwordError = document.querySelector('.passwordError');
 
   form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    return
 
 
-    const formData = new FormData(form);
 
-    try {
-      const result = await fetch("http://localhost:3000/signup", {
-          method: "POST",
-          body: JSON.stringify(Object.fromEntries(formData)),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await result.json();
+    // e.preventDefault();
 
-      //document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
-
-      if (data.hasOwnProperty("code")) {
-        const reformatMessages = data.message.replace("Users validation failed:", "").split(",")
-
-        const errorMessages = reformatMessages.map((message) => {
-          return message.split(":")[1].trim()
-        })
-
-        errorMessages[0] ? nameError.textContent = errorMessages[0] : nameError.textContent = "";
-        errorMessages[1] ? emailError.textContent = errorMessages[1] : emailError.textContent = "";
-        errorMessages[2] ? passwordError.textContent = errorMessages[2] : passwordError.textContent = "";
-        console.log("Something went wrong, code: "+ data.code)
-      }
-
-      if(data.user){
-        location.assign("/login.html")
-      }
-
-    } catch (err) {
-      console.log(err)
-    }
+    // const formData = new FormData(form);
+    //
+    // try {
+    //   const result = await fetch("http://localhost:3000/signup", {
+    //       method: "POST",
+    //       body: JSON.stringify(Object.fromEntries(formData)),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+    //
+    //   const data = await result.json();
+    //
+    //   // document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
+    //
+    //   if (data.hasOwnProperty("code")) {
+    //     const reformatMessages = data.message.replace("Users validation failed:", "").split(",")
+    //
+    //     const errorMessages = reformatMessages.map((message) => {
+    //       return message.split(":")[1].trim()
+    //     })
+    //
+    //     errorMessages[0] ? nameError.textContent = errorMessages[0] : nameError.textContent = "";
+    //     errorMessages[1] ? emailError.textContent = errorMessages[1] : emailError.textContent = "";
+    //     errorMessages[2] ? passwordError.textContent = errorMessages[2] : passwordError.textContent = "";
+    //     console.log("Something went wrong, code: "+ data.code)
+    //   }
+    //
+    //   if(data.user){
+    //     // location.assign("/login.html")
+    //     console.log("User created")
+    //   }
+    //
+    // } catch (err) {
+    //   console.log(err)
+    // }
 
   });
 

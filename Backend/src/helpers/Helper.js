@@ -11,7 +11,6 @@ class Helper {
     return jwt.sign({id}, secret, {expiresIn: 3 * 24 * 60 * 60});
   }
 
-
   static createNewMonError(err, code, description) {
     console.log(err)
     const errorAnswer = new monError({

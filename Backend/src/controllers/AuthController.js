@@ -12,8 +12,12 @@ class AuthController {
       const user = await User.create({name, password, email});
       const token = helper.createToken(user._id);
       console.log(token)
-      // res.set('Set-Cookie', 'cookieName=cookieValue');//Cant set cookie????
+      // res.setHeader('Set-Cookie', `jwt=${token}; HttpOnly`)
+      res.set('Set-Cookie', `jwt=${token}`);
+
+
       res.status(201).json({user: user._id, jwt: token});
+      // res.redirect("http://localhost:8080/home.html");
     } catch (err) {
       const errorAnswer = helper.createNewMonError(err, 500, "Error creating user");
       res.status(500).json(errorAnswer);
@@ -21,7 +25,10 @@ class AuthController {
   }
 
   async login(req, res) {
+    // const {email, password} = req.body;
+
     const {email, password} = req.body;
+
 
     try {
       const user = await User.login(email, password);

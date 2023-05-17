@@ -9,16 +9,17 @@
 </head>
 <body>
 <a href="./index.html">SignUp</a>
-<form>
+<a href="./home.html">HOME</a>
+<form action="http://localhost:3000/login" method="post">
 
   <h2>Login</h2>
 
   <label for="email">Email</label>
-  <input type="email" name="email" id="email" placeholder="Email">
+  <input required type="email" name="email" id="email" placeholder="Email">
   <br>
   <br>
   <label for="password">Password</label>
-  <input type="password" name="password" id="password" placeholder="Password">
+  <input required type="password" name="password" id="password" placeholder="Password">
   <br>
 
   <div class="emailError"></div>
@@ -31,47 +32,22 @@
 
 <script>
 
-  const form = document.querySelector('form');
-  const emailError = document.querySelector('.emailError');
-  const passwordError = document.querySelector('.passwordError');
+  // const form = document.querySelector('form');
+  // const emailError = document.querySelector('.emailError');
+  // const passwordError = document.querySelector('.passwordError');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  (function () {
+    const url = new URL(window.location.href);
 
-    const formData = new FormData(form);
+    if (url.searchParams.get("error")) {
 
-    try {
-      const result = await fetch("http://localhost:3000/login", {
-          method: "POST",
-          body: JSON.stringify(Object.fromEntries(formData)),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await result.json();
-      // document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
+      document.querySelector("#email").value = url.searchParams.get("email");
 
-      if (data.hasOwnProperty("code")) {
-        if(data.message.includes("email")){
-          emailError.textContent = data.message
-          passwordError.textContent = ""
-        }
-        if (data.message.includes("password")){
-          passwordError.textContent = data.message
-          emailError.textContent = ""
-        }
-      }
-
-      if(data.user){
-        // location.assign("/home.html")
-        console.log(data.user)
-      }
-
-    } catch (err) {
-      console.log(err)
+      console.log("error")
     }
-  });
+  })()
+
+
 
 </script>
 

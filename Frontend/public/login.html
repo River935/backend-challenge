@@ -20,6 +20,10 @@
   <label for="password">Password</label>
   <input type="password" name="password" id="password" placeholder="Password">
   <br>
+
+  <div class="emailError"></div>
+  <div class="passwordError"></div>
+
   <br>
   <button>Login</button>
 
@@ -49,10 +53,14 @@
       // document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
 
       if (data.hasOwnProperty("code")) {
-        const errorMessages = data.message.replace("Users validation failed:", "").split(",")
-
-        errorMessages[1] ? emailError.textContent = errorMessages[1] : emailError.textContent = "";
-        errorMessages[2] ? passwordError.textContent = errorMessages[2] : passwordError.textContent = "";
+        if(data.message.includes("email")){
+          emailError.textContent = data.message
+          passwordError.textContent = ""
+        }
+        if (data.message.includes("password")){
+          passwordError.textContent = data.message
+          emailError.textContent = ""
+        }
       }
 
       if(data.user){

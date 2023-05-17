@@ -23,13 +23,13 @@ class AuthController {
   async login(req, res) {
     const {email, password} = req.body;
 
-
     try {
       const user = await User.login(email, password);
       res.status(200).json({user: user._id});
 
     } catch (err) {
-      res.status(404).json({})
+      const errorAnswer = helper.createNewMonError(err, 500, "Error logging in");
+      res.status(500).json(errorAnswer);
     }
 
   }

@@ -60,14 +60,20 @@
         }
       );
       const data = await result.json();
-      document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
+
+      //document.cookie = `jwt=${data.jwt}`; // work around for cookie not being setable in backend authController
 
       if (data.hasOwnProperty("code")) {
-        const errorMessages = data.message.replace("Users validation failed:", "").split(",")
+        const reformatMessages = data.message.replace("Users validation failed:", "").split(",")
+
+        const errorMessages = reformatMessages.map((message) => {
+          return message.split(":")[1].trim()
+        })
 
         errorMessages[0] ? nameError.textContent = errorMessages[0] : nameError.textContent = "";
         errorMessages[1] ? emailError.textContent = errorMessages[1] : emailError.textContent = "";
         errorMessages[2] ? passwordError.textContent = errorMessages[2] : passwordError.textContent = "";
+        console.log("Something went wrong, code: "+ data.code)
       }
 
       if(data.user){

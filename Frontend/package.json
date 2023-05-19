@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "http-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -5,8 +5,8 @@ info:
   description: An Api for a dog shelter
   version: "1"
 servers:
-- url: https://virtserver.swaggerhub.com/JONATHANNUEL98/Dogshelter-Api/1
-  description: localhost
+  - url: https://virtserver.swaggerhub.com/JONATHANNUEL98/Dogshelter-Api/1
+    description: localhost
 paths:
   /dogs:
     get:
@@ -41,21 +41,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       security:
-      - apiKeyAuth: []
+        - apiKeyAuth: [ ]
   /dogs/{id}:
     get:
       summary: Get a single dog by ID
       parameters:
-      - name: id
-        in: path
-        description: ID of the dog to get
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-          example: 1
+        - name: id
+          in: path
+          description: ID of the dog to get
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+            example: 1
       responses:
         "200":
           description: Dog found successfully
@@ -72,16 +72,16 @@ paths:
     put:
       summary: Update a single dog by ID
       parameters:
-      - name: id
-        in: path
-        description: ID of the dog to update
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-          example: 1
+        - name: id
+          in: path
+          description: ID of the dog to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+            example: 1
       requestBody:
         content:
           application/json:
@@ -102,20 +102,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       security:
-      - apiKeyAuth: []
+        - apiKeyAuth: [ ]
     delete:
       summary: Delete a single dog by ID
       parameters:
-      - name: id
-        in: path
-        description: ID of the dog to delete
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-          example: 1
+        - name: id
+          in: path
+          description: ID of the dog to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+            example: 1
       responses:
         "204":
           description: Dog deleted successfully
@@ -126,19 +126,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       security:
-      - apiKeyAuth: []
+        - apiKeyAuth: [ ]
   /dogs/search:
     get:
       summary: Get dogs by size range
       parameters:
-      - name: size
-        in: query
-        description: Size of the dogs to search
-        required: true
-        style: form
-        explode: true
-        schema:
-          $ref: '#/components/schemas/Error'
+        - name: size
+          in: query
+          description: Size of the dogs to search
+          required: true
+          style: form
+          explode: true
+          schema:
+            $ref: '#/components/schemas/Error'
       responses:
         "200":
           description: List of dogs within the specified size range
@@ -180,8 +180,8 @@ components:
           description: gender of a dog
           example: Male
           enum:
-          - Male
-          - Female
+            - Male
+            - Female
         weight:
           type: integer
           description: weight of a dog
@@ -191,11 +191,11 @@ components:
           description: size of a dogs
           example: Ultralarge
           enum:
-          - Small
-          - Medium
-          - Large
-          - Superlarge
-          - Ultralarge
+            - Small
+            - Medium
+            - Large
+            - Superlarge
+            - Ultralarge
     Error:
       type: object
       properties:
@@ -207,6 +207,32 @@ components:
           type: string
           description: Error message
           example: Dog not found
+
+
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of a user
+          example: John Doe
+        email:
+            type: string
+            description: email of a user
+            example: john@example.com
+        password:
+            type: string
+            description: password of a user
+            example: password
+        role:
+            type: string
+            description: role of a user
+            example: admin
+            enum:
+              - admin
+              - user
+  }
+
     Dogs:
       type: array
       items:

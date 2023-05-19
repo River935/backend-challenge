@@ -20,6 +20,7 @@ class Helper {
     return errorAnswer;
   }
 
+
   static authenticate(cookies) {
     const {jwt, user, role} = cookies;
     //authenticate functionality

@@ -4,10 +4,8 @@ require("dotenv").config();
 
 class Helper {
 
-
   static createToken(id) {
     const secret = process.env.JWT_SECRET;
-    console.log(secret)
     return jwt.sign({id}, secret, {expiresIn: 3 * 24 * 60 * 60});
   }
 

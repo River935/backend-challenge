@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(cors());
 
-console.log("server")
 
 // creating a user
 // authenticating the user

@@ -1,6 +1,7 @@
 const Dog = require("../models/dogModel");
 const monError = require("../models/errorModel");
 const helper  = require("../helpers/Helper");
+const domain = process.env.DOMAIN;
 
 
 class DogController {
@@ -28,15 +29,13 @@ class DogController {
   async findOneDogByID(req, res) {
     try {
 
-      const token = req.cookies.jwt;
-      console.log(token);
-
+      console.log(req.cookies)
       //Authenticate functionality
       const {isAdmin} = helper.authenticate(req.cookies)
-      console.log(isAdmin)
 
       if (isAdmin) {
         const dog = await Dog.findById(req.params.id);
+        console.log(dog)
         res.status(200).json(dog);
       }
 

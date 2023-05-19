@@ -50,7 +50,7 @@ class AuthController {
 
   async logout(req, res) {
     console.log("logout")
-    res.set("Set-Cookie", ["jwt=kolo; httpOnly; domain=localhost; maxAge=0", "user=; httpOnly; domain=localhost; maxAge=0", "role=; httpOnly; domain=localhost; maxAge=0"]);
+    res.set("Set-Cookie", ["jwt=; httpOnly; domain=localhost; maxAge=0", "user=; httpOnly; domain=localhost; maxAge=0", "role=; httpOnly; domain=localhost; maxAge=0"]);
     res.redirect(`${domain}/login.html`);
   }
 

@@ -19,6 +19,17 @@ class Helper {
     });
     return errorAnswer;
   }
+
+  static authenticate(cookies) {
+    const {jwt, user, role} = cookies;
+    //authenticate functionality
+    let isAdmin;
+    if (role === "admin") {
+      isAdmin = true;
+    }
+    console.log(jwt, user, role);
+    return {isAdmin, hasValidToken: true}
+  }
 }
 
 module.exports = Helper;

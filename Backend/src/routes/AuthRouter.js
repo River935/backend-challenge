@@ -10,6 +10,7 @@ class AuthRouter{
   initializeRoutes(){
     this.app.post("/signup", this.authController.signUp);
     this.app.post("/login", this.authController.login)
+    this.app.post("/logout", this.authController.logout);
   }
 
 }

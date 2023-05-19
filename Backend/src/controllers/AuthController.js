@@ -1,7 +1,9 @@
 const helper = require("../helpers/Helper");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-const domain = "http://localhost:8080";
+require("dotenv").config();
+
+const domain = process.env.DOMAIN;
 
 class AuthController {
   async signUp(req, res) {
@@ -45,6 +47,15 @@ class AuthController {
       res.redirect(`${domain}/login.html?error=${errorAnswer.description}, ${errorAnswer.message}&email=${email}`);
     }
   }
+
+  async logout(req, res) {
+    console.log("logout")
+    res.set("Set-Cookie", ["jwt=kolo; httpOnly; domain=localhost; maxAge=0", "user=; httpOnly; domain=localhost; maxAge=0", "role=; httpOnly; domain=localhost; maxAge=0"]);
+    res.redirect(`${domain}/login.html`);
+  }
+
 }
+
+
 
 module.exports = AuthController;

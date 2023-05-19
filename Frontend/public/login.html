@@ -1,59 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Login</title>
-</head>
-<body>
-<a href="./index.html">SignUp</a>
-<a href="./login.html">Login</a>
-<a href="./home.html">HOME</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login</title>
+  </head>
+  <body>
+    <a href="./index.html">SignUp</a>
+    <a href="./login.html">Login</a>
+    <a href="./home.html">HOME</a>
 
-<form action="http://localhost:3000/login" method="post">
+    <form action="http://localhost:3000/login" method="post">
+      <h2>Login</h2>
 
-  <h2>Login</h2>
+      <label for="email">Email</label>
+      <input
+        required
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Email"
+      />
+      <br />
+      <br />
+      <label for="password">Password</label>
+      <input
+        required
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Password"
+      />
+      <br />
 
-  <label for="email">Email</label>
-  <input required type="email" name="email" id="email" placeholder="Email">
-  <br>
-  <br>
-  <label for="password">Password</label>
-  <input required type="password" name="password" id="password" placeholder="Password">
-  <br>
+      <div class="errorField"></div>
 
-  <div class="emailError"></div>
-  <div class="passwordError"></div>
+      <br />
+      <button>Login</button>
+      <a href="login.html">clear fields</a>
+    </form>
 
-  <br>
-  <button>Login</button>
-  <a href="login.html">clear fields</a>
+    <script>
+      const form = document.querySelector("form");
+      const errorField = document.querySelector(".errorField");
 
+      (function () {
+        const url = new URL(window.location.href);
 
-</form>
+        if (url.searchParams.get("error")) {
+          const rawErrors = url.searchParams.get("error");
+          const email = url.searchParams.get("email");
+          console.log(rawErrors);
 
-<script>
-
-  // const form = document.querySelector('form');
-  // const emailError = document.querySelector('.emailError');
-  // const passwordError = document.querySelector('.passwordError');
-
-  (function () {
-    const url = new URL(window.location.href);
-
-    if (url.searchParams.get("error")) {
-
-      document.querySelector("#email").value = url.searchParams.get("email");
-
-      console.log("error")
-    }
-  })()
-
-
-
-</script>
-
-</body>
+          errorField.innerHTML = rawErrors;
+          email ? (document.querySelector("#email").value = email) : null;
+        }
+      })();
+    </script>
+  </body>
 </html>

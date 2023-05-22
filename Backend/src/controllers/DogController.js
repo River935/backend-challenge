@@ -1,48 +1,45 @@
 const Dog = require("../models/dogModel");
 const monError = require("../models/errorModel");
-const helper  = require("../helpers/Helper");
+const helper = require("../helpers/Helper");
 const domain = process.env.DOMAIN;
-
 
 class DogController {
   async findAll(req, res) {
 
     try {
-
-      const token = req.cookies.jwt;
-      console.log(token);
-      //Authenticate function
-      helper.authenticate(req.cookies)
-
-      //maybe find the user by id and check if the role is admin for other routes?
-
-      //create database connection
       const dogs = await Dog.find();
+
+      if (dogs.length === 0) {
+        const errorAnswer = helper.createNewMonError({message: "Collection not found or empty"}, 404, "No dogs found");
+        res.status(404).json(errorAnswer);
+        return;
+      }
+
       res.status(200).json(dogs);
-      //close connection
+
     } catch (err) {
       const errorAnswer = helper.createNewMonError(err, 500, "Error connecting to db");
       res.status(500).json(errorAnswer);
     }
   }
 
+
   async findOneDogByID(req, res) {
+    console.log("findOneDogByID")
     try {
+      const dog = await Dog.findById(req.params.id);
 
-      console.log(req.cookies)
-      //Authenticate functionality
-      const {isAdmin} = helper.authenticate(req.cookies)
+      res.status(200).json(dog);
 
-      if (isAdmin) {
-        const dog = await Dog.findById(req.params.id);
-        console.log(dog)
-        res.status(200).json(dog);
+    } catch (err) {
+
+      if (err.name === "CastError") {
+        const errorAnswer = helper.createNewMonError(err, 404, "Invalid Dog ID");
+        return res.status(404).json(errorAnswer);
       }
 
-      res.status(401).json({message: "Unauthorized"});
-    } catch (err) {
-      const errorAnswer = helper.createNewMonError(err, 404, "Dog not found");
-      res.status(404).json(errorAnswer);
+      const errorAnswer = helper.createNewMonError(err, 500, "Error connecting to db");
+      res.status(500).json(errorAnswer);
     }
   }
 
@@ -81,6 +78,12 @@ class DogController {
       const result = await dog.save();
       res.status(200).json(result);
     } catch (err) {
+
+      if (err.name === "CastError") {
+        const errorAnswer = helper.createNewMonError(err, 404, "Invalid Dog ID");
+        return res.status(404).json(errorAnswer);
+      }
+
       const errorAnswer = helper.createNewMonError(err, 500, "Error put dog");
       res.status(500).json(errorAnswer);
     }
@@ -102,14 +105,35 @@ class DogController {
   async deleteDog(req, res) {
     try {
       const result = await Dog.deleteOne({_id: req.params.id});
-      if (result.deletedCount === 0) {
-        return res.status(404).json({message: "Dog not found"});
-      }
+
+
       res.status(200).json({message: "Dog deleted"});
     } catch (err) {
+
+      if (err.name === "CastError") {
+        const errorAnswer = helper.createNewMonError({message: "Dog not found"}, 404, "Dog not found");
+        return res.status(404).json(errorAnswer);
+      }
+
       const errorAnswer = helper.createNewMonError(err, 500, "Error delete dog");
       res.status(500).json(errorAnswer);
     }
+  }
+
+  async findDogsBySize(req, res) {
+    console.log("findDogsBySize")
+   
+    try {
+      console.log(req.params)
+      const {sizes} = req.query
+
+      const dogs = await Dog.find({size: {$in: sizes}})
+      console.log(dogs)
+    } catch (err) {
+      console.log(err)
+    }
+
+
   }
 }
 

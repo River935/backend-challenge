@@ -10,7 +10,6 @@ class Helper {
   }
 
   static createNewMonError(err, code, description) {
-    console.log(err)
     const errorAnswer = new monError({
       type: "Database error",
       code: code,
@@ -18,21 +17,6 @@ class Helper {
       description: description,
     });
     return errorAnswer;
-  }
-
-
-  static authenticate(cookies) {
-    const {jwt, user, role} = cookies;
-
-    //authenticate functionality
-    let isAdmin;
-
-    if (role === "admin") {
-      isAdmin = true;
-    }
-    console.log(isAdmin)
-    console.log(jwt, user, role);
-    return {isAdmin, hasValidToken: true}
   }
 }
 

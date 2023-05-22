@@ -37,7 +37,6 @@
         fetch("http://localhost:3000/dogs")
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             const doggaronis = document.querySelector(".doggaronis");
             doggaronis.innerHTML = "";
             data.forEach((dog) => {

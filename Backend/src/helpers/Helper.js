@@ -9,6 +9,11 @@ class Helper {
     return jwt.sign({id}, secret, {expiresIn: 3 * 24 * 60 * 60});
   }
 
+  static verifyToken(token) {
+    const secret = process.env.JWT_SECRET;
+    return jwt.verify(token, secret);
+  }
+
   static createNewMonError(err, code, description) {
     console.log(err)
     const errorAnswer = new monError({
@@ -18,21 +23,6 @@ class Helper {
       description: description,
     });
     return errorAnswer;
-  }
-
-
-  static authenticate(cookies) {
-    const {jwt, user, role} = cookies;
-
-    //authenticate functionality
-    let isAdmin;
-
-    if (role === "admin") {
-      isAdmin = true;
-    }
-    console.log(isAdmin)
-    console.log(jwt, user, role);
-    return {isAdmin, hasValidToken: true}
   }
 }
 

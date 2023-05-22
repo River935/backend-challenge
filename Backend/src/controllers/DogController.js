@@ -1,6 +1,6 @@
 const Dog = require("../models/dogModel");
 const monError = require("../models/errorModel");
-const helper  = require("../helpers/Helper");
+const helper = require("../helpers/Helper");
 const domain = process.env.DOMAIN;
 
 
@@ -8,11 +8,6 @@ class DogController {
   async findAll(req, res) {
 
     try {
-
-      const token = req.cookies.jwt;
-      console.log(token);
-      //Authenticate function
-      helper.authenticate(req.cookies)
 
       //maybe find the user by id and check if the role is admin for other routes?
 
@@ -27,19 +22,11 @@ class DogController {
   }
 
   async findOneDogByID(req, res) {
+    console.log("findOneDogByID")
     try {
+      const dog = await Dog.findById(req.params.id);
+      res.status(200).json(dog);
 
-      console.log(req.cookies)
-      //Authenticate functionality
-      const {isAdmin} = helper.authenticate(req.cookies)
-
-      if (isAdmin) {
-        const dog = await Dog.findById(req.params.id);
-        console.log(dog)
-        res.status(200).json(dog);
-      }
-
-      res.status(401).json({message: "Unauthorized"});
     } catch (err) {
       const errorAnswer = helper.createNewMonError(err, 404, "Dog not found");
       res.status(404).json(errorAnswer);

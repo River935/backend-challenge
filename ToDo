@@ -1,8 +1,0 @@
-[x] add put and patch to the documentation
-[x] create Error schema to send back on error
-[] implement the documentation.
-[] add User.js (Owners, Clients) in model and create a user schema, model.
-[] add authentication for users
-[] add CreatedAt, UdatedAt, Comments in Dog schema.
-[] create UserInputHandler class for handling user input for name and password
-

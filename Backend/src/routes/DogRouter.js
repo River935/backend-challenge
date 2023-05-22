@@ -1,4 +1,5 @@
 const DogController = require('../controllers/DogController');
+const Authenticator = require('../middleware/Authenticator');
 
 class DogRouter {
   constructor(app) {
@@ -10,7 +11,7 @@ class DogRouter {
   initializeRoutes() {
     this.app.get("/dogs", this.dogController.findAll);
     this.app.get("/dogs/count", this.dogController.countAllDogs);
-    this.app.get("/dogs/:id", this.dogController.findOneDogByID);
+    this.app.get("/dogs/:id", Authenticator.authenticate,  this.dogController.findOneDogByID);
     
     this.app.post("/dogs/create", this.dogController.createDog);
 

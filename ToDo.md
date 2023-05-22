@@ -6,7 +6,9 @@
 
 ---
 
-[] implement documentation | correct error handling | 
+[x] implement documentation
+[] implement finddogbysize
+[] correct error handling
 [] improve authenticate method
 [] implement authentication for different routes
 [] protect homepage with authentication

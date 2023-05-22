@@ -1,6 +1,7 @@
 const express = require('express');
 const Users = require('../models/userModel');
 const Helper = require('../helpers/Helper');
+const jwt = require("jsonwebtoken");
 
 class Authenticator {
 
@@ -9,39 +10,29 @@ class Authenticator {
 
     const {jwt,user,role} = req.cookies;
 
-
     try {
-      const decodedToken = Helper.verifyToken(jwt)
-      const { id } = decodedToken;
-      console.log(decodedToken)
-      console.log(id)
-      console.log(user)
+      const decodedToken = Authenticator.verifyToken(jwt);
       // const currentUser = await Users.findOne({_id: id});
 
       if(decodedToken && role === "admin"){
         console.log("admin")
         next();
+        return;
       }
+
+      const errorAnswer = Helper.createNewMonError({message:"Unauthorized User"}, 401, "Unauthorized");
+      res.status(401).json(errorAnswer);
 
     }catch (err) {
       console.log(err)
     }
 
+  }
 
-
-
-
-    // if () {
-    //   console.log("jwt verified")
-    // }
-
-
-    // if(currentUser.role === "admin"){
-    //   console.log("admin")
-    // }
-
-
-    // next();
+  static verifyToken(token) {
+    console.log("verifying token...")
+    const secret = process.env.JWT_SECRET;
+    return jwt.verify(token, secret);
   }
 
 

@@ -9,13 +9,7 @@ class Helper {
     return jwt.sign({id}, secret, {expiresIn: 3 * 24 * 60 * 60});
   }
 
-  static verifyToken(token) {
-    const secret = process.env.JWT_SECRET;
-    return jwt.verify(token, secret);
-  }
-
   static createNewMonError(err, code, description) {
-    console.log(err)
     const errorAnswer = new monError({
       type: "Database error",
       code: code,

@@ -35,9 +35,9 @@ class AuthController {
       const user = await User.login(email, password);
       const token = helper.createToken(user._id);
 
-      const cookieJwt = `jwt=${token}; httpOnly; domain=localhost`;
-      const cookieUser = `user=${user._id}; httpOnly; domain=localhost`;
-      const cookieRole = `role=${user.role}; httpOnly; domain=localhost`;
+      const cookieJwt = `jwt=${token}; httpOnly; domain=localhost, secure`;
+      const cookieUser = `user=${user._id}; httpOnly; domain=localhost, secure`;
+      const cookieRole = `role=${user.role}; httpOnly; domain=localhost, secure`;
       res.set("Set-Cookie", [cookieJwt, cookieUser, cookieRole]);
 
       res.redirect(`${domain}/home.html`);
@@ -55,7 +55,6 @@ class AuthController {
   }
 
 }
-
 
 
 module.exports = AuthController;

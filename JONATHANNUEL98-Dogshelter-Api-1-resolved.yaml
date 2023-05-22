@@ -18,6 +18,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Dogs'
+        "404":
+            description: No dogs found
+            content:
+                application/json:
+                schema:
+                    $ref: '#/components/schemas/errorSchema'
+        "500":
+            description: Internal server error
+            content:
+                application/json:
+                schema:
+                    $ref: '#/components/schemas/errorSchema'
+
+
   /dogs/create:
     post:
       summary: Create a new dog
@@ -40,8 +54,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorSchema'
       security:
         - apiKeyAuth: [ ]
+
+
+
   /dogs/{id}:
     get:
       summary: Get a single dog by ID
@@ -69,6 +92,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorSchema'
     put:
       summary: Update a single dog by ID
       parameters:
@@ -101,8 +130,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorSchema'
       security:
         - apiKeyAuth: [ ]
+
     delete:
       summary: Delete a single dog by ID
       parameters:
@@ -125,6 +161,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorSchema'
       security:
         - apiKeyAuth: [ ]
   /dogs/search:
@@ -152,6 +194,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        "500":
+            description: Internal server error
+            content:
+                application/json:
+                schema:
+                    $ref: '#/components/schemas/errorSchema'
 components:
   schemas:
     Dog:

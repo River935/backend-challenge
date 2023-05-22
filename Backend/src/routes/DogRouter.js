@@ -11,9 +11,11 @@ class DogRouter {
   initializeRoutes() {
     this.app.get("/dogs", this.dogController.findAll);
     this.app.get("/dogs/count", this.dogController.countAllDogs);
-    this.app.get("/dogs/:id", Authenticator.authenticate,  this.dogController.findOneDogByID);
+    this.app.get("/dogs/:id",  this.dogController.findOneDogByID);
+
+    this.app.get("/dogs/:size",  this.dogController.findDogsBySize);
     
-    this.app.post("/dogs/create", this.dogController.createDog);
+    this.app.post("/dogs/create", Authenticator.authenticate, this.dogController.createDog);
 
     this.app.put("/dogs/put/:id", this.dogController.putDog);
 

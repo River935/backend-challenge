@@ -7,17 +7,16 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
-
+app.use(cors({ credentials: true, origin: "http://localhost:8080" }));
 
 // creating a user
 // authenticating the user
-// make certain db operations only available to authenticated users with certain roles
+// make certain db operations only available to authenticated users with certain
+// roles
 
 let db = new DatabaseConnector();
 
@@ -26,15 +25,12 @@ let authRouter = new AuthRouter(app);
 let dogRouter = new DogRouter(app);
 let catRouter = new CatRouter(app);
 
-db.connectToDb().then(() => {
-  app.listen(3000, () => {
-    console.log("Server running on port 3000");
-  });
-}).catch((err) => {
+db.connectToDb()
+  .then(() => {
+    app.listen(3000, () => {
+      console.log("Server running on port 3000");
+    });
+  })
+  .catch((err) => {
     console.log("Not connected to database", err);
-  }
-);
-
-
-
-
+  });

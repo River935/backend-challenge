@@ -13,7 +13,7 @@ class DogRouter {
     this.app.get("/dogs/count", this.dogController.countAllDogs);
     this.app.get("/dogs/:id",  this.dogController.findOneDogByID);
 
-    this.app.get("/dogs/:size",  this.dogController.findDogsBySize);
+    this.app.get("/dogs/bysize/:size",  this.dogController.findDogsBySize);
     
     this.app.post("/dogs/create", Authenticator.authenticate, this.dogController.createDog);
 

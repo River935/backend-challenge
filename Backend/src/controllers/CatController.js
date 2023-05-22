@@ -1,4 +1,4 @@
-const Cat = require('../models/catModel');
+const Cat = require("../models/catModel");
 const monError = require("../models/errorModel");
 const helper = require("../helpers/Helper");
 class CatController {
@@ -9,7 +9,7 @@ class CatController {
       res.status(200).json(cats);
       // close connection
     } catch (err) {
-      res.status(500).json({message : "Error connecting to db"});
+      res.status(500).json({ message: "Error connecting to db" });
     }
   }
 
@@ -18,7 +18,7 @@ class CatController {
       const cat = await at.findById(req.params.id);
       res.status(200).json(cat);
     } catch (err) {
-      res.status(500).json({message : "Error connecting to db"});
+      res.status(500).json({ message: "Error connecting to db" });
     }
   }
   async countAllCats(req, res) {
@@ -26,10 +26,10 @@ class CatController {
       console.log("countAllCats");
       const count = await Cat.countDocuments();
       console.log(count);
-      res.status(200).json({count : count});
+      res.status(200).json({ count: count });
     } catch (err) {
       console.log(err);
-      res.status(500).json({message : "Error counting cats"});
+      res.status(500).json({ message: "Error counting cats" });
     }
   }
 
@@ -39,7 +39,7 @@ class CatController {
       const result = await cat.save();
       res.status(201).json(result);
     } catch (err) {
-      res.status(500).json({message : "Error creating cat"});
+      res.status(500).json({ message: "Error creating cat" });
     }
   }
 
@@ -56,7 +56,7 @@ class CatController {
       res.status(200).json(result);
     } catch (err) {
       // res.status(500).json(err);      Error schema
-      res.status(500).json({message : "Error put cat"});
+      res.status(500).json({ message: "Error put cat" });
     }
   }
 
@@ -74,12 +74,11 @@ class CatController {
 
   async deleteCat(req, res) {
     try {
-
-      const result = await Cat.deleteOne({_id : req.params.id});
+      const result = await Cat.deleteOne({ _id: req.params.id });
       if (result.deletedCount === 0) {
-        return res.status(404).json({message : "Cat not found"});
+        return res.status(404).json({ message: "Cat not found" });
       }
-      res.status(200).json({message : "Cat deleted"});
+      res.status(200).json({ message: "Cat deleted" });
     } catch (err) {
       res.status(500).json(err);
     }

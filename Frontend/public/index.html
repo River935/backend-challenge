@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>SignUp</title>
-  </head>
-  <body>
-    <a href="./index.html">SignUp</a>
-    <a href="./login.html">Login</a>
-    <a href="./home.html">HOME</a>
+<head>
+	<meta charset="UTF-8"/>
+	<meta
+		name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+	/>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+	<title>SignUp</title>
+</head>
+<body>
+<a href="./index.html">SignUp</a>
+<a href="./login.html">Login</a>
+<a href="./home.html">HOME</a>
 
-    <form action="http://localhost:3000/signup" method="post">
-      <h2>Sign Up</h2>
+<form action="http://localhost:3000/signup" method="post">
+	<h2>Sign Up</h2>
 
-      <label for="name">Name</label>
-      <input required type="text" name="name" id="name" placeholder="Name" />
+	<label for="name">Name</label>
+	<input required type="text" name="name" id="name" placeholder="Name"/>
 
-      <br />
-      <br />
+	<br/>
+	<br/>
 
-      <label for="email">Email</label>
-      <input
-        required
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Email"
-      />
+	<label for="email">Email</label>
+	<input
+		required
+		type="email"
+		name="email"
+		id="email"
+		placeholder="Email"
+	/>
 
-      <br />
-      <br />
+	<br/>
+	<br/>
 
-      <label for="password">Password</label>
-      <input
-        required
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Password"
-      />
+	<label for="password">Password</label>
+	<input
+		required
+		type="password"
+		name="password"
+		id="password"
+		placeholder="Password"
+	/>
 
-      <br />
-      <br />
+	<br/>
+	<br/>
 
-      <div class="errorField"></div>
+	<div class="errorField"></div>
 
-      <br />
+	<br/>
 
-      <button>Sign Up</button>
-      <a href="index.html">clear fields</a>
-    </form>
+	<button>Sign Up</button>
+	<a href="index.html">clear fields</a>
+</form>
 
-    <script>
-      const form = document.querySelector("form");
-      const errorField = document.querySelector(".errorField");
+<script>
+  const form = document.querySelector("form");
+  const errorField = document.querySelector(".errorField");
 
-      (function () {
-        const url = new URL(window.location.href);
+  (function () {
+    const url = new URL(window.location.href);
 
-        if (url.searchParams.get("error")) {
-          const rawErrors = url.searchParams.get("error");
-          console.log(rawErrors);
+    if (url.searchParams.get("error")) {
+      const rawErrors = url.searchParams.get("error");
+      console.log(rawErrors);
 
-          const email = url.searchParams.get("email");
-          const name = url.searchParams.get("name");
+      const email = url.searchParams.get("email");
+      const name = url.searchParams.get("name");
 
-          errorField.innerHTML = rawErrors;
-          email ? (document.querySelector("#email").value = email) : null;
-          name ? (document.querySelector("#name").value = name) : null;
-        }
-      })();
-    </script>
-  </body>
+      errorField.innerHTML = rawErrors;
+      email ? (document.querySelector("#email").value = email) : null;
+      name ? (document.querySelector("#name").value = name) : null;
+    }
+  })();
+</script>
+</body>
 </html>

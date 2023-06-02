@@ -13,15 +13,9 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: "http://localhost:8080" }));
 
-// creating a user
-// authenticating the user
-// make certain db operations only available to authenticated users with certain
-// roles
-
 let db = new DatabaseConnector();
 
 let authRouter = new AuthRouter(app);
-
 let dogRouter = new DogRouter(app);
 let catRouter = new CatRouter(app);
 

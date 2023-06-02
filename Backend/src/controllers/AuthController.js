@@ -15,11 +15,19 @@ class AuthController {
       console.log(user);
       const token = helper.createToken(user._id);
 
-      const cookieJwt = `jwt=${token}; httpOnly; domain=localhost, secure`;
-      const cookieUser = `user=${user._id}; httpOnly; domain=localhost, secure`;
-      const cookieRole = `role=${user.role}; httpOnly; domain=localhost, secure`;
+
+      const cookieJwt = `jwt=${token}; httpOnly; secure`;
+      const cookieUser = `user=${user._id}; httpOnly; secure`;
+      const cookieRole = `role=${user.role}; httpOnly; secure`;
       res.set("Set-Cookie", [cookieJwt, cookieUser, cookieRole]);
 
+      // Cookies not working because of domain ???
+      // const cookieJwt = `jwt=${token}; httpOnly; domain=localhost, secure`;
+      // const cookieUser = `user=${user._id}; httpOnly; domain=localhost, secure`;
+      // const cookieRole = `role=${user.role}; httpOnly; domain=localhost, secure`;
+      // res.set("Set-Cookie", [cookieJwt, cookieUser, cookieRole]);
+      console.log("Cookies set")
+      console.log(cookieJwt)
       res.redirect(`${domain}/home.html`);
     } catch (err) {
       const errorAnswer = helper.createNewMonError(err, 400, "Error signing up!");
@@ -35,9 +43,9 @@ class AuthController {
       const user = await User.login(email, password);
       const token = helper.createToken(user._id);
 
-      const cookieJwt = `jwt=${token}; httpOnly; domain=localhost, secure`;
-      const cookieUser = `user=${user._id}; httpOnly; domain=localhost, secure`;
-      const cookieRole = `role=${user.role}; httpOnly; domain=localhost, secure`;
+      const cookieJwt = `jwt=${token}; httpOnly; secure`;
+      const cookieUser = `user=${user._id}; httpOnly;  secure`;
+      const cookieRole = `role=${user.role}; httpOnly; secure`;
       res.set("Set-Cookie", [cookieJwt, cookieUser, cookieRole]);
 
       res.redirect(`${domain}/home.html`);

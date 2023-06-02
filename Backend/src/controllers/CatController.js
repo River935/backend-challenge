@@ -85,7 +85,28 @@ class CatController {
     }
   }
 
-  // hello
+  async findCatsBySize(req, res) {
+    
+    try {
+      //console.log(req.params)
+      const { size } = req.params
+    
+      const cats = await Cat.find({ size: size })
+      //console.log(cats)
+
+      
+      if (cats.length === 0) {
+        const errorAnswer = helper.createNewMonError({message: "Cat size not found"}, 404, "No cats found");
+        res.status(404).json(errorAnswer);
+        return;
+      }
+
+      res.status(200).json(cats);
+    }  catch (err) {
+      const errorAnswer = helper.createNewMonError(err, 500, "Error connecting to db");
+      res.status(500).json(errorAnswer);
+    }
+  }
 }
 
 module.exports = CatController;

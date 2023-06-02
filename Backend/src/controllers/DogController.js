@@ -130,7 +130,6 @@ class DogController {
       const dogs = await Dog.find({ size: size })
       //console.log(dogs)
 
-      //TO FIX: error 404 type says database error and then collection not found
       if (dogs.length === 0) {
         const errorAnswer = helper.createNewMonError({message: "Dog size not found"}, 404, "No dogs found");
         res.status(404).json(errorAnswer);

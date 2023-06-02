@@ -5,43 +5,51 @@ const domain = process.env.DOMAIN;
 
 class DogController {
   async findAll(req, res) {
-
     try {
       const dogs = await Dog.find();
 
       if (dogs.length === 0) {
         const errorAnswer = helper.createNewMonError(
-            {message : "Collection not found or empty"}, 404, "No dogs found");
+          { message: "Collection not found or empty" },
+          404,
+          "No dogs found"
+        );
         res.status(404).json(errorAnswer);
         return;
       }
 
       res.status(200).json(dogs);
-
     } catch (err) {
-      const errorAnswer =
-          helper.createNewMonError(err, 500, "Error connecting to db");
+      const errorAnswer = helper.createNewMonError(
+        err,
+        500,
+        "Error connecting to db"
+      );
       res.status(500).json(errorAnswer);
     }
   }
 
   async findOneDogByID(req, res) {
-    console.log("findOneDogByID")
+    console.log("findOneDogByID");
     try {
       const dog = await Dog.findById(req.params.id);
 
       res.status(200).json(dog);
-
     } catch (err) {
-
       if (err.name === "CastError") {
-        const errorAnswer =
-            helper.createNewMonError(err, 404, "Invalid Dog ID");
+        const errorAnswer = helper.createNewMonError(
+          err,
+          404,
+          "Invalid Dog ID"
+        );
         return res.status(404).json(errorAnswer);
       }
 
-      const errorAnswer =
-          helper.createNewMonError(err, 500, "Error connecting to db");
+      const errorAnswer = helper.createNewMonError(
+        err,
+        500,
+        "Error connecting to db"
+      );
       res.status(500).json(errorAnswer);
     }
   }
@@ -51,10 +59,13 @@ class DogController {
       console.log("countAllDogs");
       const count = await Dog.countDocuments();
       console.log(count);
-      res.status(200).json({count : count});
+      res.status(200).json({ count: count });
     } catch (err) {
-      const errorAnswer =
-          helper.createNewMonError(err, 500, "Error counting dogs");
+      const errorAnswer = helper.createNewMonError(
+        err,
+        500,
+        "Error counting dogs"
+      );
       res.status(500).json(errorAnswer);
     }
   }
@@ -65,8 +76,11 @@ class DogController {
       const result = await dog.save();
       res.status(201).json(result);
     } catch (err) {
-      const errorAnswer =
-          helper.createNewMonError(err, 500, "Error creating dog");
+      const errorAnswer = helper.createNewMonError(
+        err,
+        500,
+        "Error creating dog"
+      );
       res.status(500).json(errorAnswer);
     }
   }
@@ -83,10 +97,12 @@ class DogController {
       const result = await dog.save();
       res.status(200).json(result);
     } catch (err) {
-
       if (err.name === "CastError") {
-        const errorAnswer =
-            helper.createNewMonError(err, 404, "Invalid Dog ID");
+        const errorAnswer = helper.createNewMonError(
+          err,
+          404,
+          "Invalid Dog ID"
+        );
         return res.status(404).json(errorAnswer);
       }
 
@@ -110,19 +126,24 @@ class DogController {
 
   async deleteDog(req, res) {
     try {
-      const result = await Dog.deleteOne({_id : req.params.id});
+      const result = await Dog.deleteOne({ _id: req.params.id });
 
-      res.status(200).json({message : "Dog deleted"});
+      res.status(200).json({ message: "Dog deleted" });
     } catch (err) {
-
       if (err.name === "CastError") {
         const errorAnswer = helper.createNewMonError(
-            {message : "Dog not found"}, 404, "Dog not found");
+          { message: "Dog not found" },
+          404,
+          "Dog not found"
+        );
         return res.status(404).json(errorAnswer);
       }
 
-      const errorAnswer =
-          helper.createNewMonError(err, 500, "Error delete dog");
+      const errorAnswer = helper.createNewMonError(
+        err,
+        500,
+        "Error delete dog"
+      );
       res.status(500).json(errorAnswer);
     }
   }
@@ -143,27 +164,32 @@ class DogController {
     }
   }*/
   async findDogsBySize(req, res) {
-
     try {
       // console.log(req.params)
-      const {size} = req.params
+      const { size } = req.params;
 
-      const dogs = await Dog.find({size : size})
+      const dogs = await Dog.find({ size: size });
       // console.log(dogs)
 
       // TO FIX: error 404 type says database error and then collection not
       // found
       if (dogs.length === 0) {
         const errorAnswer = helper.createNewMonError(
-            {message : "Dog size not found"}, 404, "No dogs found");
+          { message: "Dog size not found" },
+          404,
+          "No dogs found"
+        );
         res.status(404).json(errorAnswer);
         return;
       }
 
       res.status(200).json(dogs);
     } catch (err) {
-      const errorAnswer =
-          helper.createNewMonError(err, 500, "Error connecting to db");
+      const errorAnswer = helper.createNewMonError(
+        err,
+        500,
+        "Error connecting to db"
+      );
       res.status(500).json(errorAnswer);
     }
   }

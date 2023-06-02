@@ -13,7 +13,6 @@
 [] implement authentication for different routes
 [] protect homepage with authentication
 
-
 [] improve the dog schema
 [] add CreatedAt, UdatedAt, Comments in Dog schema.
 [] add tests

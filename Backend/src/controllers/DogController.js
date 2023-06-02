@@ -120,21 +120,7 @@ class DogController {
     }
   }
 
-  /*
-  async findDogsBySize(req, res) {
-    console.log("findDogsBySize")
   
-    try {
-      console.log(req.params)
-      const { sizes } = req.query
-  
-      const dogs = await Dog.find({ size: { $in: sizes } })
-      console.log(dogs)
-      res.status(200).json(dogs);
-    } catch (err) {
-      console.log(err)
-    }
-  }*/
   async findDogsBySize(req, res) {
     
     try {

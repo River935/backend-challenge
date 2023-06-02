@@ -14,22 +14,33 @@ class CatController {
   }
 
   async findOneCatByID(req, res) {
+    console.log("findOneCatByID")
     try {
-      const cat = await at.findById(req.params.id);
+      const cat = await Cat.findById(req.params.id);
+
       res.status(200).json(cat);
+
     } catch (err) {
-      res.status(500).json({ message: "Error connecting to db" });
+
+      if (err.name === "CastError") {
+        const errorAnswer = helper.createNewMonError(err, 404, "Invalid Cat ID");
+        return res.status(404).json(errorAnswer);
+      }
+
+      const errorAnswer = helper.createNewMonError(err, 500, "Error connecting to db");
+      res.status(500).json(errorAnswer);
     }
   }
+
   async countAllCats(req, res) {
     try {
       console.log("countAllCats");
       const count = await Cat.countDocuments();
       console.log(count);
-      res.status(200).json({ count: count });
+      res.status(200).json({count: count});
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: "Error counting cats" });
+      const errorAnswer = helper.createNewMonError(err, 500, "Error counting cats");
+      res.status(500).json(errorAnswer);
     }
   }
 
@@ -84,7 +95,31 @@ class CatController {
     }
   }
 
-  // hello
+
+  async findCatsBySize(req, res) {
+    
+    try {
+      //console.log(req.params)
+      const { size } = req.params
+    
+      const cats = await Cat.find({ size: size })
+      //console.log(dogs)
+
+      //TO FIX: error 404 type says database error and then collection not found
+      if (cats.length === 0) {
+        const errorAnswer = helper.createNewMonError({message: "Cat size not found"}, 404, "No cats found");
+        res.status(404).json(errorAnswer);
+        return;
+      }
+
+      res.status(200).json(cats);
+    }  catch (err) {
+      const errorAnswer = helper.createNewMonError(err, 500, "Error connecting to db");
+      res.status(500).json(errorAnswer);
+    }
+  }
+
+  
 }
 
 module.exports = CatController;

@@ -7,7 +7,7 @@
 ---
 
 [x] implement documentation
-[] implement finddogbysize
+[x] implement finddogbysize
 [] correct error handling
 [] improve authenticate method
 [] implement authentication for different routes
